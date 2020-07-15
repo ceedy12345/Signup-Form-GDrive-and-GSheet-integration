@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<style>
+    form {
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px 50px;
+  background: #f4f7f8;
+  border-radius: 10px;
+        
+        
+}
+    
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+    .button {
+  padding: 19px 39px 18px 39px;
+  color: #FFF;
+  background-color: #4bc970;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid #3ac162;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+  margin-bottom: 10px;
+}
+    body {
+  font-family: 'Nunito', sans-serif;
+  color: #384047;
+}
+    
+    input[type="text"],
+input[type="email"],
+input[type="number"],
+
+textarea,
+select {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin-bottom: 30px;
+}
+    
+@media screen and (min-width: 480px) {
+
+  form {
+    max-width: 480px;
+  }
+
+}
+    .custom-file-upload {
+        
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+    h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+    label.light {
+  font-weight: 300;
+  display: inline;
+}
+    </style>
+    <body>
+    
+<form id="uploadForm" action="https://script.google.com/macros/s/AKfycbzxGu6CoTNE-VeUvnmRyEUf5zqU1-VwkFlyELqkk7nIwX1RYYTD/exec" method="POST" name="myForm">
+  
+    <input type="hidden" value="" name="fileContent" id="fileContent">
+  <input type="hidden" value="" name="filename" id="filename">
+   <h1>Quick Apply </h1>
+  <br><label > Name : </label>
+    <input required="" type="text" value="" name="name" id="name">
+  <br><label> Email :</label> 
+    <input required="" type="email" value="" name="email" id="email">  
+  <br><label> Phone : </label>
+    <input required="" type="number" value="" name="contact" id="contact">
+  <br><label> Please contact me by (required)</label> 
+     <input type="radio" id="contactme" value="1" name="myRadios"><label class="light">Mobile</label><br>
+    <input type="radio" id="email_rad" value="2" name="myRadios"><label class="light">email</label>
+     <input type="radio" id="sms" value="3" name="myRadios" >
+    <label class="light">sms</label><br>
+    
+    
+  <br><label> Hear about us? (required)</label> 
+    <select name="HAS" id="HAS"  aria-required="true" aria-invalid="false" onchange="showtextbox();">
+    <option value="Google">Google</option>
+    <option value="Facebook">Facebook</option>
+    <option value="YouTube">YouTube</option>
+    <option value="Yahoo">Yahoo</option>
+    <option value="Internet">Internet</option>
+    <option value="Others">Others</option>
+    </select>
+ <br><input id="otherbox" required="" type="text" value="" name="otherbox"  style="visibility: hidden;">
+       <label>Your CV/Resume</label>
+<input class="custom-file-upload" required="" id="attach" name="attach" type="file">
+<br><input class="button"value="Submit" type="button" onclick="UploadFile();">
+<br>Note:
+<br><label>Maximum CV size is 5mb i.e. 5mb Please ensure that CVs are word document or PDF files (.doc,.docx, and. pdf (required)</label> 
+  
+</form>
+  
+</body>
+
+
+<script>
+    function showtextbox(){
+    var selectBox = document.getElementById('HAS');
+    var userInput = selectBox.options[selectBox.selectedIndex].value;
+        
+    if (userInput == 'Others')
+        {
+            document.getElementById('otherbox').style.visibility= 'visible';
+        }
+    else
+        {
+            document.getElementById('otherbox').style.visibility = 'hidden';
+        }
+        return false;
+}
+function UploadFile() {
+  var reader = new FileReader();
+  var file = document.getElementById('attach').files[0];
+  reader.onload = function(){
+    document.getElementById('fileContent').value=reader.result;
+	document.getElementById('filename').value=file.name;
+    document.getElementById('uploadForm').submit();
+     
+  }
+reader.readAsDataURL(file);
+}
+//for radio button
+var rad = document.myForm.myRadios;
+var prev = null;
+for (var i = 0; i < rad.length; i++) {
+    rad[i].addEventListener('change', function() {
+        (prev) ? console.log(prev.value): null;
+        if (this !== prev) {
+            prev = this;
+        }
+        console.log(this.value)
+    });
+}
+</script>
+</html>
